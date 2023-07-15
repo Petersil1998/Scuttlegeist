@@ -2,7 +2,6 @@ package net.petersil98.scuttlegeist.model;
 
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import net.petersil98.core.constant.Region;
-import net.petersil98.core.http.RiotAPI;
 import net.petersil98.scuttlegeist.http.LoRAPI;
 
 import java.util.List;

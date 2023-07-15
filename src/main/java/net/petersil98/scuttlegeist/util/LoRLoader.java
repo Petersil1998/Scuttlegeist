@@ -1,16 +1,13 @@
 package net.petersil98.scuttlegeist.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import net.petersil98.core.Core;
-import net.petersil98.core.constant.Constants;
 import net.petersil98.core.util.Loader;
 import net.petersil98.core.util.settings.Language;
 import net.petersil98.core.util.settings.Settings;
 import net.petersil98.scuttlegeist.Scuttlegeist;
 import net.petersil98.scuttlegeist.collection.*;
+import net.petersil98.scuttlegeist.constants.LoRConstants;
 import net.petersil98.scuttlegeist.data.*;
-import net.petersil98.scuttlegeist.model.Deserializers;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,13 +50,13 @@ public class LoRLoader extends Loader {
     @Override
     protected boolean shouldReloadData() {
         if(usedLanguage != getLanguageToUse()) return true;
-        String globalsUrl = Constants.DDRAGON_LOR_BASE_PATH + "latest/core/en_us/data/globals-en_us.json";
+        String globalsUrl = LoRConstants.DDRAGON_LOR_BASE_PATH + "latest/core/en_us/data/globals-en_us.json";
         try(InputStream lorVersion = URI.create(globalsUrl).toURL().openConnection().getInputStream()) {
             JsonNode root = MAPPER.readTree(lorVersion);
             Matcher matcher = PATTERN.matcher(root.get("regions").get(0).get("iconAbsolutePath").asText());
-            if(matcher.find()) Constants.DDRAGON_LOR_VERSION = matcher.group(1);
-            if(!latestDDragonVersion.equals(Constants.DDRAGON_LOR_VERSION)) {
-                latestDDragonVersion = Constants.DDRAGON_VERSION;
+            if(matcher.find()) LoRConstants.DDRAGON_LOR_VERSION = matcher.group(1);
+            if(!latestDDragonVersion.equals(LoRConstants.DDRAGON_LOR_VERSION)) {
+                latestDDragonVersion = LoRConstants.DDRAGON_LOR_VERSION;
                 return true;
             }
         } catch (IOException e) {
@@ -73,12 +70,12 @@ public class LoRLoader extends Loader {
     }
 
     private static void loadLatestVersions() {
-        String globalsUrl = Constants.DDRAGON_LOR_BASE_PATH + "latest/core/en_us/data/globals-en_us.json";
+        String globalsUrl = LoRConstants.DDRAGON_LOR_BASE_PATH + "latest/core/en_us/data/globals-en_us.json";
         try(InputStream lorVersion = URI.create(globalsUrl).toURL().openConnection().getInputStream()) {
             JsonNode root = MAPPER.readTree(lorVersion);
             Matcher matcher = PATTERN.matcher(root.get("regions").get(0).get("iconAbsolutePath").asText());
-            if(matcher.find()) Constants.DDRAGON_LOR_VERSION = matcher.group(1);
-            latestDDragonVersion = Constants.DDRAGON_VERSION;
+            if(matcher.find()) LoRConstants.DDRAGON_LOR_VERSION = matcher.group(1);
+            latestDDragonVersion = LoRConstants.DDRAGON_LOR_VERSION;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,7 +83,7 @@ public class LoRLoader extends Loader {
 
     private void loadVocabTerms() {
         String lang = usedLanguage.toString().toLowerCase();
-        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", Constants.DDRAGON_LOR_BASE_PATH, Constants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
+        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
             List<VocabTerm> vocabTerms = MAPPER.readerForListOf(VocabTerm.class).readValue(MAPPER.readTree(in).get("vocabTerms"));
             setFieldInCollection(VocabTerms.class, vocabTerms.stream().collect(Collectors.toMap(VocabTerm::getId, vocabTerm -> vocabTerm)));
         } catch (IOException | URISyntaxException e) {
@@ -96,7 +93,7 @@ public class LoRLoader extends Loader {
 
     private void loadKeywords() {
         String lang = usedLanguage.toString().toLowerCase();
-        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", Constants.DDRAGON_LOR_BASE_PATH, Constants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
+        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
             List<Keyword> keywords = MAPPER.readerForListOf(Keyword.class).readValue(MAPPER.readTree(in).get("keywords"));
             setFieldInCollection(Keywords.class, keywords.stream().collect(Collectors.toMap(Keyword::getId, keyword -> keyword)));
         } catch (IOException | URISyntaxException e) {
@@ -106,7 +103,7 @@ public class LoRLoader extends Loader {
 
     private void loadRegions() {
         String lang = usedLanguage.toString().toLowerCase();
-        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", Constants.DDRAGON_LOR_BASE_PATH, Constants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
+        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
             List<Region> regions = MAPPER.readerForListOf(Region.class).readValue(MAPPER.readTree(in).get("regions"));
             setFieldInCollection(Regions.class, regions.stream().collect(Collectors.toMap(Region::getId, region -> region)));
         } catch (IOException | URISyntaxException e) {
@@ -116,7 +113,7 @@ public class LoRLoader extends Loader {
 
     private void loadSpellSpeeds() {
         String lang = usedLanguage.toString().toLowerCase();
-        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", Constants.DDRAGON_LOR_BASE_PATH, Constants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
+        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
             List<SpellSpeed> spellSpeeds = MAPPER.readerForListOf(SpellSpeed.class).readValue(MAPPER.readTree(in).get("spellSpeeds"));
             setFieldInCollection(SpellSpeeds.class, spellSpeeds.stream().collect(Collectors.toMap(SpellSpeed::getId, spellSpeed -> spellSpeed)));
         } catch (IOException | URISyntaxException e) {
@@ -126,7 +123,7 @@ public class LoRLoader extends Loader {
 
     private void loadRarities() {
         String lang = usedLanguage.toString().toLowerCase();
-        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", Constants.DDRAGON_LOR_BASE_PATH, Constants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
+        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
             List<Rarity> rarities = MAPPER.readerForListOf(Rarity.class).readValue(MAPPER.readTree(in).get("rarities"));
             setFieldInCollection(Rarities.class, rarities.stream().collect(Collectors.toMap(Rarity::getId, rarity -> rarity)));
         } catch (IOException | URISyntaxException e) {
@@ -136,7 +133,7 @@ public class LoRLoader extends Loader {
 
     private void loadSets() {
         String lang = usedLanguage.toString().toLowerCase();
-        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", Constants.DDRAGON_LOR_BASE_PATH, Constants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
+        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
             List<Set> sets = MAPPER.readerForListOf(Set.class).readValue(MAPPER.readTree(in).get("sets"));
             setFieldInCollection(Sets.class, sets.stream().collect(Collectors.toMap(Set::getId, set -> set)));
         } catch (IOException | URISyntaxException e) {
@@ -146,7 +143,7 @@ public class LoRLoader extends Loader {
 
     private void loadFormats() {
         String lang = usedLanguage.toString().toLowerCase();
-        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", Constants.DDRAGON_LOR_BASE_PATH, Constants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
+        try(InputStream in = new URI(String.format("%s%s/core/%s/data/globals-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, lang, lang)).toURL().openStream()) {
             List<Format> formats = MAPPER.readerForListOf(Format.class).readValue(MAPPER.readTree(in).get("formats"));
             setFieldInCollection(Formats.class, formats.stream().collect(Collectors.toMap(Format::getId, format -> format)));
         } catch (IOException | URISyntaxException e) {
@@ -161,7 +158,7 @@ public class LoRLoader extends Loader {
         for(Set set: Sets.getSets()) {
             if(set.getId().contains("Event")) continue;
             String setName = set.getId().toLowerCase();
-            try(InputStream in = new URI(String.format("%s%s/%s/%s/data/%s-%s.json", Constants.DDRAGON_LOR_BASE_PATH, Constants.DDRAGON_LOR_VERSION, setName, lang, setName, lang)).toURL().openStream()) {
+            try(InputStream in = new URI(String.format("%s%s/%s/%s/data/%s-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, setName, lang, setName, lang)).toURL().openStream()) {
                 for (JsonNode cardNode: MAPPER.readTree(in)) {
                     List<Card.Asset> assets = MAPPER.readerForListOf(Card.Asset.class).readValue(cardNode.get("assets"));
                     List<Region> regions = StreamSupport.stream(cardNode.get("regionRefs").spliterator(), false)

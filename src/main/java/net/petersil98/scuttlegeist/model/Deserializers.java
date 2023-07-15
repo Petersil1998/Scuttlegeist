@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import net.petersil98.core.Core;
 import net.petersil98.scuttlegeist.model.match.MatchDetails;
 import net.petersil98.scuttlegeist.model.match.Player;
 
