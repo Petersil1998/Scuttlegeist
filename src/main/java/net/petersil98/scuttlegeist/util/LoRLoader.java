@@ -160,25 +160,9 @@ public class LoRLoader extends Loader {
             String setName = set.getId().toLowerCase();
             try(InputStream in = new URI(String.format("%s%s/%s/%s/data/%s-%s.json", LoRConstants.DDRAGON_LOR_BASE_PATH, LoRConstants.DDRAGON_LOR_VERSION, setName, lang, setName, lang)).toURL().openStream()) {
                 for (JsonNode cardNode: MAPPER.readTree(in)) {
-                    List<Card.Asset> assets = MAPPER.readerForListOf(Card.Asset.class).readValue(cardNode.get("assets"));
-                    List<Region> regions = StreamSupport.stream(cardNode.get("regionRefs").spliterator(), false)
-                            .map(JsonNode::asText).map(Regions::getRegion).toList();
-                    List<Keyword> keywords = StreamSupport.stream(cardNode.get("keywordRefs").spliterator(), false)
-                            .map(JsonNode::asText).map(Keywords::getKeyword).toList();
-                    List<Format> formats = null;
-                    if(cardNode.has("formatRefs"))
-                        formats = StreamSupport.stream(cardNode.get("formatRefs").spliterator(), false)
-                            .map(JsonNode::asText).map(Formats::getFormat).toList();
-                    String id = cardNode.get("cardCode").asText();
-                    cards.put(id, new Card(id, cardNode.get("name").asText(), assets, regions, cardNode.get("attack").asInt(),
-                            cardNode.get("cost").asInt(), cardNode.get("health").asInt(), cardNode.get("descriptionRaw").asText(),
-                            cardNode.get("levelupDescriptionRaw").asText(), cardNode.get("flavorText").asText(), cardNode.get("artistName").asText(),
-                            keywords, SpellSpeeds.getSpellSpeed(cardNode.get("spellSpeedRef").asText()),
-                            Rarities.getRarity(cardNode.get("rarityRef").asText()),
-                            MAPPER.readerForListOf(String.class).readValue(cardNode.get("subtypes")),
-                            cardNode.get("supertype").asText(), cardNode.get("type").asText(), cardNode.get("collectible").asBoolean(),
-                            Sets.getSet(cardNode.get("set").asText()), formats));
-                    ASSOCIATED_CARDS.put(id, MAPPER.readerForListOf(String.class).readValue(cardNode.get("associatedCardRefs")));
+                    Card card = MAPPER.readerFor(Card.class).readValue(cardNode);
+                    cards.put(card.getId(), card);
+                    ASSOCIATED_CARDS.put(card.getId(), MAPPER.readerForListOf(String.class).readValue(cardNode.get("associatedCardRefs")));
                 }
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();

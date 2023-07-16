@@ -1,11 +1,14 @@
 package net.petersil98.scuttlegeist.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.petersil98.scuttlegeist.collection.Cards;
+import net.petersil98.scuttlegeist.model.Deserializers;
 import net.petersil98.scuttlegeist.util.LoRLoader;
 
 import java.util.List;
 
+@JsonDeserialize(using = Deserializers.CardDeserializer.class)
 public class Card {
 
     private final String id;
