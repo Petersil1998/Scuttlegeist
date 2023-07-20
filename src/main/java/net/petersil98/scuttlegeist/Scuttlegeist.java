@@ -1,11 +1,11 @@
 package net.petersil98.scuttlegeist;
 
-import net.petersil98.core.constant.Region;
 import net.petersil98.core.util.EncryptionUtil;
 import net.petersil98.core.util.Loader;
 import net.petersil98.core.util.settings.Language;
 import net.petersil98.core.util.settings.Settings;
 import net.petersil98.scuttlegeist.collection.Cards;
+import net.petersil98.scuttlegeist.constants.LoRRegion;
 import net.petersil98.scuttlegeist.data.Card;
 import net.petersil98.scuttlegeist.model.Deck;
 import net.petersil98.scuttlegeist.model.LoRRanked;
@@ -73,7 +73,7 @@ public class Scuttlegeist {
         );
         String s = Deck.encodeDeck(poros);
         Map<Card, Integer> another = Deck.decodeDeck(s);
-        List<MatchDetails> matchDetails = MatchDetails.getMatchHistory("WG-EdMhZnQITJsSz8gSlKtSRCRPaDs7Sl-tDaGQN39uNXCui4Kducxhgo5hdjj2FhXM6GYV6hDVVmg", Region.EUROPE);
-        System.out.println(LoRRanked.getLeaderboard(Region.EUROPE));
+        List<MatchDetails> matchDetails = MatchDetails.getMatchHistory("WG-EdMhZnQITJsSz8gSlKtSRCRPaDs7Sl-tDaGQN39uNXCui4Kducxhgo5hdjj2FhXM6GYV6hDVVmg", LoRRegion.EUROPE);
+        System.out.println(LoRRanked.getLeaderboard(LoRRegion.EUROPE));
     }
 }

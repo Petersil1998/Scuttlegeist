@@ -2,7 +2,7 @@ package net.petersil98.scuttlegeist.model.match;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import net.petersil98.core.constant.Region;
+import net.petersil98.scuttlegeist.constants.LoRRegion;
 import net.petersil98.scuttlegeist.http.LoRAPI;
 import net.petersil98.scuttlegeist.model.Deserializers;
 
@@ -27,11 +27,11 @@ public class MatchDetails {
         this.players = players;
     }
 
-    public static MatchDetails getMatchDetails(String matchId, Region region) {
+    public static MatchDetails getMatchDetails(String matchId, LoRRegion region) {
         return LoRAPI.requestLorMatchEndpoint("matches/", matchId, region, MatchDetails.class);
     }
 
-    public static List<MatchDetails> getMatchHistory(String puuid, Region region) {
+    public static List<MatchDetails> getMatchHistory(String puuid, LoRRegion region) {
         List<String> matchIds = LoRAPI.requestLorMatchEndpoint("matches/by-puuid/", puuid + "/ids", region, TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
         return matchIds.stream().map(matchId -> MatchDetails.getMatchDetails(matchId, region)).toList();
     }

@@ -3,9 +3,9 @@ package net.petersil98.scuttlegeist.http;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeBase;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import net.petersil98.core.constant.Region;
 import net.petersil98.core.http.RiotAPI;
 import net.petersil98.core.util.settings.Settings;
+import net.petersil98.scuttlegeist.constants.LoRRegion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class LoRAPI extends RiotAPI {
      * @param requiredClass Class to which the response should get mapped to
      * @return An object of class <b>T</b> if casting is successful, {@code null} otherwise
      */
-    public static <T> T requestLorRankedEndpoint(String method, String args, Region region, Class<T> requiredClass) {
+    public static <T> T requestLorRankedEndpoint(String method, String args, LoRRegion region, Class<T> requiredClass) {
         return requestLorRankedEndpoint(method, args, region, requiredClass, new HashMap<>());
     }
 
@@ -42,7 +42,7 @@ public class LoRAPI extends RiotAPI {
      * @param requiredClass Class to which the response should get mapped to
      * @return An object of Type <b>{@code requiredClass}</b> if casting is successful, {@code null} otherwise
      */
-    public static <T> T requestLorRankedEndpoint(String method, String args, Region region, TypeBase requiredClass) {
+    public static <T> T requestLorRankedEndpoint(String method, String args, LoRRegion region, TypeBase requiredClass) {
         return requestLorRankedEndpoint(method, args, region, requiredClass, new HashMap<>());
     }
 
@@ -58,7 +58,7 @@ public class LoRAPI extends RiotAPI {
      *               even if they represent an integer
      * @return An object of class <b>T</b> if casting is successful, {@code null} otherwise
      */
-    public static <T> T requestLorRankedEndpoint(String method, String args, Region region, Class<T> requiredClass, Map<String, String> filter) {
+    public static <T> T requestLorRankedEndpoint(String method, String args, LoRRegion region, Class<T> requiredClass, Map<String, String> filter) {
         return requestLorRankedEndpoint(method, args, region, TypeFactory.defaultInstance().constructType(requiredClass), filter);
     }
 
@@ -75,7 +75,7 @@ public class LoRAPI extends RiotAPI {
      *               even if they represent an integer
      * @return An object of Type <b>{@code requiredClass}</b> if casting is successful, {@code null} otherwise
      */
-    public static <T> T requestLorRankedEndpoint(String method, String args, Region region, JavaType requiredClass, Map<String, String> filter) {
+    public static <T> T requestLorRankedEndpoint(String method, String args, LoRRegion region, JavaType requiredClass, Map<String, String> filter) {
         return handleCacheAndRateLimiter(
                 constructUrl(LOR_RANKED_V1 + method + args, AppType.LOR, region),
                 LOR_RANKED_V1 + method, region, requiredClass, filter);
@@ -91,7 +91,7 @@ public class LoRAPI extends RiotAPI {
      * @param requiredClass Class to which the response should get mapped to
      * @return An object of class <b>T</b> if casting is successful, {@code null} otherwise
      */
-    public static <T> T requestLorMatchEndpoint(String method, String args, Region region, Class<T> requiredClass) {
+    public static <T> T requestLorMatchEndpoint(String method, String args, LoRRegion region, Class<T> requiredClass) {
         return requestLorMatchEndpoint(method, args, region, requiredClass, new HashMap<>());
     }
 
@@ -108,7 +108,7 @@ public class LoRAPI extends RiotAPI {
      * @param requiredClass Class to which the response should get mapped to
      * @return An object of Type <b>{@code requiredClass}</b> if casting is successful, {@code null} otherwise
      */
-    public static <T> T requestLorMatchEndpoint(String method, String args, Region region, TypeBase requiredClass) {
+    public static <T> T requestLorMatchEndpoint(String method, String args, LoRRegion region, TypeBase requiredClass) {
         return requestLorMatchEndpoint(method, args, region, requiredClass, new HashMap<>());
     }
 
@@ -124,7 +124,7 @@ public class LoRAPI extends RiotAPI {
      *               even if they represent an integer
      * @return An object of class <b>T</b> if casting is successful, {@code null} otherwise
      */
-    public static <T> T requestLorMatchEndpoint(String method, String args, Region region, Class<T> requiredClass, Map<String, String> filter) {
+    public static <T> T requestLorMatchEndpoint(String method, String args, LoRRegion region, Class<T> requiredClass, Map<String, String> filter) {
         return requestLorMatchEndpoint(method, args, region, TypeFactory.defaultInstance().constructType(requiredClass), filter);
     }
 
@@ -141,7 +141,7 @@ public class LoRAPI extends RiotAPI {
      *               even if they represent an integer
      * @return An object of Type <b>{@code requiredClass}</b> if casting is successful, {@code null} otherwise
      */
-    public static <T> T requestLorMatchEndpoint(String method, String args, Region region, JavaType requiredClass, Map<String, String> filter) {
+    public static <T> T requestLorMatchEndpoint(String method, String args, LoRRegion region, JavaType requiredClass, Map<String, String> filter) {
         return handleCacheAndRateLimiter(
                 constructUrl(LOR_MATCH_V1 + method + args, AppType.LOR, region),
                 LOR_MATCH_V1 + method, region, requiredClass, filter);
