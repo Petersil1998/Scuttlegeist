@@ -21,9 +21,9 @@ allprojects {
 }
 
 dependencies {
-  ...
-  implementation 'com.github.Petersil1998:Core:v1.3'
-  implementation 'com.github.Petersil1998:Scuttlegeist:v1.0'
+    ...
+    implementation 'com.github.Petersil1998:Core:v1.3'
+    implementation 'com.github.Petersil1998:Scuttlegeist:v1.0'
 }
 ```
 
