@@ -22,7 +22,7 @@ allprojects {
 
 dependencies {
     ...
-    implementation 'com.github.Petersil1998:Core:v1.3'
+    implementation 'com.github.Petersil1998:Core:v1.4'
     implementation 'com.github.Petersil1998:Scuttlegeist:v1.0'
 }
 ```
@@ -40,7 +40,7 @@ or using **Maven**:
 <dependency>
     <groupId>com.github.Petersil1998</groupId>
     <artifactId>Core</artifactId>
-    <version>v1.3</version>
+    <version>v1.4</version>
 </dependency>
 <dependency>
     <groupId>com.github.Petersil1998</groupId>
