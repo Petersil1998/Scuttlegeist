@@ -31,21 +31,21 @@ or using **Maven**:
 
 ```XML
 <repositories>
-  <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-  </repository>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
 </repositories>
 
 <dependency>
-  <groupId>com.github.Petersil1998</groupId>
-  <artifactId>Core</artifactId>
-  <version>v1.3</version>
+    <groupId>com.github.Petersil1998</groupId>
+    <artifactId>Core</artifactId>
+    <version>v1.3</version>
 </dependency>
 <dependency>
-  <groupId>com.github.Petersil1998</groupId>
-  <artifactId>Scuttlegeist</artifactId>
-  <version>v1.0</version>
+    <groupId>com.github.Petersil1998</groupId>
+    <artifactId>Scuttlegeist</artifactId>
+    <version>v1.0</version>
 </dependency>
 ```
 
