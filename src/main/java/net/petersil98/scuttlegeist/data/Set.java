@@ -1,16 +1,25 @@
 package net.petersil98.scuttlegeist.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.petersil98.scuttlegeist.model.Deserializers;
 
 import java.util.Objects;
 
+@JsonDeserialize(using = Deserializers.SetDeserializer.class)
 public class Set {
 
     @JsonProperty("nameRef")
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
     @JsonProperty("iconAbsolutePath")
-    private String image;
+    private final String image;
+
+    public Set(String id, String name, String image) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+    }
 
     public String getId() {
         return id;

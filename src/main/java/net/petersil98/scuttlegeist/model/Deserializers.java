@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.petersil98.scuttlegeist.collection.*;
-import net.petersil98.scuttlegeist.data.Card;
-import net.petersil98.scuttlegeist.data.Format;
-import net.petersil98.scuttlegeist.data.Keyword;
-import net.petersil98.scuttlegeist.data.Region;
+import net.petersil98.scuttlegeist.data.*;
 import net.petersil98.scuttlegeist.model.match.MatchDetails;
 import net.petersil98.scuttlegeist.model.match.Player;
 
@@ -71,6 +68,16 @@ public class Deserializers {
                     MAPPER.readerForListOf(String.class).readValue(root.get("subtypes")),
                     root.get("supertype").asText(), root.get("type").asText(), root.get("collectible").asBoolean(),
                     Sets.getSet(root.get("set").asText()), formats);
+        }
+    }
+
+    public static class SetDeserializer extends JsonDeserializer<Set> {
+
+        @Override
+        public Set deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+            JsonNode root = jp.getCodec().readTree(jp);
+
+            return new Set(root.get("nameRef").asText(), root.get("name").asText(), root.get("iconAbsolutePath").asText().replace("_crispmip", ""));
         }
     }
 }
